@@ -1,0 +1,26 @@
+name: Shops
+author: WolfLeader116
+main: io.github.wolfleader116.shops.Shops
+version: 2.0
+description: Shops plugin.
+depend: [Vault,WolfAPI]
+commands:
+  shops:
+    description: Main shops command.
+permissions:
+  shops.*:
+    description: Gives the player access to all shops features.
+    children:
+      shops.reset: true
+      shops.reload: true
+      shops.create: true
+      shops.use: true
+  shops.reset:
+    description: Allows the player to reset the config.
+  shops.reload:
+    description: Allows the player to reload the config.
+  shops.create:
+    description: Allows the player to create shops.
+  shops.use:
+    description: Allows the player to use shops.
+    default: true
