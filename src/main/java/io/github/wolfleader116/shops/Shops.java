@@ -80,13 +80,13 @@ public class Shops extends JavaPlugin implements Listener {
 			if (p.hasPermission("shops.create")) {
 				for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
 					if (e.getLine(1).equalsIgnoreCase(name)) {
-						e.setLine(0, "§5[§aShop§5]");
+						e.setLine(0, "Â§5[Â§aShopÂ§5]");
 						e.setLine(1, WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()));
 						e.setLine(2, "");
-						e.setLine(3, "§");
+						e.setLine(3, "Â§");
 					}
 				}
-				if (e.getLine(3) != "§") {
+				if (e.getLine(3) != "Â§") {
 					p.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "Invalid format. Shop not created.");
 					e.setLine(3, "");
 				} else {
@@ -106,11 +106,11 @@ public class Shops extends JavaPlugin implements Listener {
 			Block b = e.getClickedBlock();
 			if ((b.getType() == Material.SIGN_POST) || (b.getType() == Material.WALL_SIGN)) {
 				Sign s = (Sign)b.getState();
-				if (s.getLine(0).equals("§5[§aShop§5]")) {
+				if (s.getLine(0).equals("Â§5[Â§aShopÂ§5]")) {
 					if (p.hasPermission("shops.use")) {
 						for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
 							if (s.getLine(1).equalsIgnoreCase(name)) {
-								Inventory inv = createInventory((short) 45, "§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop");
+								Inventory inv = createInventory((short) 45, "Â§fÂ§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop");
 								int number = 0;
 								List<String> itemlist = this.getConfig().getStringList("Items." + name);
 								String[] items = itemlist.toArray(new String[0]);
@@ -200,8 +200,8 @@ public class Shops extends JavaPlugin implements Listener {
 		ItemStack clicked = e.getCurrentItem();
 		Inventory inventory = e.getInventory();
 		for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
-			if (inventory.getTitle().equalsIgnoreCase("§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
-				String invname = inventory.getTitle().replace("§f§9", "");
+			if (inventory.getTitle().equalsIgnoreCase("Â§fÂ§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
+				String invname = inventory.getTitle().replace("Â§fÂ§9", "");
 				invname = invname.replace(" Shop", "");
 				invname = invname.replace(" ", "_");
 				List<String> itemlist = this.getConfig().getStringList("Items." + invname);
