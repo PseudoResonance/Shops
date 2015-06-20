@@ -1,7 +1,7 @@
 name: Shops
 author: WolfLeader116
 main: io.github.wolfleader116.shops.Shops
-version: 2.1
+version: 2.2
 description: Shops plugin.
 depend: [Vault,WolfAPI]
 commands:
