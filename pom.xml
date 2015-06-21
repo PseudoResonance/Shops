@@ -2,8 +2,23 @@
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>com.github.WolfLeader116</groupId>
   	<artifactId>Shops</artifactId>
-  	<version>2.2.1</version>
+  	<version>2.2.2-SNAPSHOT</version>
+  	<properties>
+  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	</properties>
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<targetPath>.</targetPath>
+				<filtering>true</filtering>
+				<directory>${basedir}/src/main/resources/</directory>
+				<includes>
+					<include>plugin.yml</include>
+					<include>LICENSE</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
