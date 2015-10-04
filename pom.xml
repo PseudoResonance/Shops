@@ -2,7 +2,7 @@
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>com.github.WolfLeader116</groupId>
   	<artifactId>Shops</artifactId>
-  	<version>2.4-SNAPSHOT</version>
+  	<version>3.0-SNAPSHOT</version>
   	<properties>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	</properties>
@@ -49,7 +49,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.8.7-R0.1-SNAPSHOT</version>
+			<version>1.8.8-R0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.milkbowl.vault</groupId>
@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.github.WolfLeader116</groupId>
 			<artifactId>WolfAPI</artifactId>
-			<version>2.6.1</version>
+			<version>Pre-3.0-8</version>
 		</dependency>
 	</dependencies>
 </project>

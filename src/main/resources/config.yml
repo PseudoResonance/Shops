@@ -11,6 +11,8 @@ Items:
   Food:
   - Apple:5:0:20:false:false:false
   - Apple:3:0:50:true:false:false,Water_Worker:37
+    - "Hello!"
+    - "I'm §6Happy!"
   Misc:
   - Arrow:5:0:10:false:false:false
   - Torch:8:0:100:false:false:false
