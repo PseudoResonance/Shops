@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import io.github.wolfleader116.shops.commands.ShopsC;
 import io.github.wolfleader116.wolfapi.Errors;
 import io.github.wolfleader116.wolfapi.ItemModifiers;
+import io.github.wolfleader116.wolfapi.WolfAPI;
 import net.milkbowl.vault.economy.Economy;
 
 import org.apache.commons.lang.WordUtils;
@@ -88,13 +89,13 @@ public class Shops extends JavaPlugin implements Listener {
 					}
 				}
 				if (e.getLine(3) != "§") {
-					Errors.sendError(Errors.CUSTOM, p, "Shops> ", "Invalid format. Shop not created.");
+					Errors.sendError(Errors.CUSTOM, p, "Shops", "Invalid format. Shop not created.");
 					e.setLine(3, "");
 				} else {
 					e.setLine(3, "");
 				}
 			} else {
-				Errors.sendError(Errors.NO_PERMISSION, p, "Shops> ");
+				Errors.sendError(Errors.NO_PERMISSION, p, "Shops");
 				e.setCancelled(true);
 			}
 		}
@@ -140,13 +141,13 @@ public class Shops extends JavaPlugin implements Listener {
 										number++;
 									}
 								} catch (NullPointerException exc) {
-									Errors.sendError(Errors.DEFAULT, p, "Shops> ");
+									Errors.sendError(Errors.DEFAULT, p, "Shops");
 								}
 								p.openInventory(inv);
 							}
 						}
 					} else {
-						Errors.sendError(Errors.NO_PERMISSION, p, "Shops> ");
+						Errors.sendError(Errors.NO_PERMISSION, p, "Shops");
 					}
 				}
 			}
@@ -322,7 +323,7 @@ public class Shops extends JavaPlugin implements Listener {
 			
 			player.getInventory().addItem(createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore));
 		}
-		player.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "Purchased the item!");
+		WolfAPI.message("Purchased the item!", player, "Shops");
 		player.closeInventory();
 	}
 }
