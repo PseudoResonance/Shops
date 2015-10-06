@@ -300,6 +300,8 @@ public class Shops extends JavaPlugin implements Listener {
 								createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 							}
 						}
+					} else if (e.getInventory().getTitle().equalsIgnoreCase("§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
+						e.setCancelled(true);
 					}
 				}
 			}
