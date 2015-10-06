@@ -275,28 +275,30 @@ public class Shops extends JavaPlugin implements Listener {
 						invname = invname.replace(" ", "_");
 						Set<String> itemlist = this.getConfig().getConfigurationSection("Items." + invname).getKeys(false);
 						String[] items = itemlist.toArray(new String[0]);
-						String itemsdata = items[clicked];
-						String[] itemdata = itemsdata.split("'");
-						String[] maindata = itemdata[0].split(",");
-						String matname = maindata[0];
-						Material material = Material.getMaterial(matname.toUpperCase());
-						int amount = Integer.valueOf(maindata[1]);
-						short data = Short.valueOf(maindata[2]);
-						String price = maindata[3];
-						boolean isSoulbound = Boolean.valueOf(maindata[4]);
-						boolean isFinal = Boolean.valueOf(maindata[5]);
-						boolean isUnbreakable = Boolean.valueOf(maindata[6]);
-						List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
-						buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
-						try {
-							ArrayList<String> enchantments = new ArrayList<String>();
-							for(int i = 1; i < itemdata.length; i++) {
-								String enchdata = itemdata[i];
-								enchantments.add(enchdata);
+						if (items.length > clicked) {
+							String itemsdata = items[clicked];
+							String[] itemdata = itemsdata.split("'");
+							String[] maindata = itemdata[0].split(",");
+							String matname = maindata[0];
+							Material material = Material.getMaterial(matname.toUpperCase());
+							int amount = Integer.valueOf(maindata[1]);
+							short data = Short.valueOf(maindata[2]);
+							String price = maindata[3];
+							boolean isSoulbound = Boolean.valueOf(maindata[4]);
+							boolean isFinal = Boolean.valueOf(maindata[5]);
+							boolean isUnbreakable = Boolean.valueOf(maindata[6]);
+							List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
+							buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
+							try {
+								ArrayList<String> enchantments = new ArrayList<String>();
+								for(int i = 1; i < itemdata.length; i++) {
+									String enchdata = itemdata[i];
+									enchantments.add(enchdata);
+								}
+								createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
+							} catch (ArrayIndexOutOfBoundsException ex) {
+								createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 							}
-							createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
-						} catch (ArrayIndexOutOfBoundsException ex) {
-							createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 						}
 					}
 				}
