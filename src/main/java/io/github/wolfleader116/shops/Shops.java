@@ -125,12 +125,7 @@ public class Shops extends JavaPlugin implements Listener {
 										boolean isSoulbound = Boolean.valueOf(maindata[4]);
 										boolean isFinal = Boolean.valueOf(maindata[5]);
 										boolean isUnbreakable = Boolean.valueOf(maindata[6]);
-										List<String> lore;
-										if (this.getConfig().contains("Items." + name + "." + itemsdata)) {
-											lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
-										} else {
-											lore = new ArrayList<String>();
-										}
+										List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
 										try {
 											ArrayList<String> enchantments = new ArrayList<String>();
 											for(int i = 1; i < itemdata.length; i++) {
@@ -292,12 +287,7 @@ public class Shops extends JavaPlugin implements Listener {
 							boolean isSoulbound = Boolean.valueOf(maindata[4]);
 							boolean isFinal = Boolean.valueOf(maindata[5]);
 							boolean isUnbreakable = Boolean.valueOf(maindata[6]);
-							List<String> lore;
-							if (this.getConfig().contains("Items." + name + "." + itemsdata)) {
-								lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
-							} else {
-								lore = new ArrayList<String>();
-							}
+							List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
 							buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
 							try {
 								ArrayList<String> enchantments = new ArrayList<String>();
