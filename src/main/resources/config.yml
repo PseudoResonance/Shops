@@ -9,25 +9,25 @@ Version: 2
 
 Items:
   Food:
-  - Apple:5:0:20:false:false:false
-  - Apple:3:0:50:true:false:false,Water_Worker:37
-    - "Hello!"
-    - "I'm §6Happy!"
+    Apple,5,0,20,false,false,false:
+    Apple,3,0,50,true,false,false'Water_Worker,37:
+      - Hey!
+      - :)
   Misc:
-  - Arrow:5:0:10:false:false:false
-  - Torch:8:0:100:false:false:false
+    Arrow,5,0,10,false,false,false:
+    Torch,8,0,100,false,false,false:
   Weapons:
-  - Bow:1:0:100:false:false:false,Arrow_Infinite:10
-  - Iron_Sword:1:0:200:true:true:false,Damage_All:100
+    Bow,1,0,100,false,false,false'Arrow_Infinite,10:
+    Iron_Sword,1,0,200,true,true,false'Damage_All,100'Fire_Aspect,7:
   Armor:
-  - Iron_Helmet:1:0:250:false:false:false
-  - Gold_Leggings:1:0:350:false:false:true
+    Iron_Helmet,1,0,250,false,false,false:
+    Gold_Leggings,1,0,350,false,false,true:
   Blocks:
-  - Stone:8:0:100:false:false:false
-  - Dirt:8:0:100:false:false:false
+    Stone,8,0,100,false,false,false:
+    Dirt,8,0,100,false,false,false:
   Magic:
-  - Potion:1:8193:1000:false:false:false
-  - Potion:2:8235:1000:false:false:false
+    Potion,1,8193,1000,false,false,false:
+    Potion,2,8235,1000,false,false,false:
 
 #Enchantments
 #Arrow_Damage is Power
