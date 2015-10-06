@@ -3,13 +3,11 @@ package io.github.wolfleader116.shops;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import io.github.wolfleader116.shops.commands.ShopsC;
 import io.github.wolfleader116.wolfapi.ItemModifiers;
-import io.github.wolfleader116.wolfapi.WolfAPI;
 import net.milkbowl.vault.economy.Economy;
 
 import org.apache.commons.lang.WordUtils;
@@ -267,7 +265,7 @@ public class Shops extends JavaPlugin implements Listener {
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player) {
 			Player player = (Player) e.getWhoClicked();
-			ItemStack clicked = e.getCurrentItem();
+			int clicked = e.getSlot();
 			Inventory inventory = e.getInventory();
 			for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
 				if (inventory.getTitle().equalsIgnoreCase("§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
@@ -276,67 +274,28 @@ public class Shops extends JavaPlugin implements Listener {
 					invname = invname.replace(" ", "_");
 					Set<String> itemlist = this.getConfig().getConfigurationSection("Items." + invname).getKeys(false);
 					String[] items = itemlist.toArray(new String[0]);
-					for (String itemsdata : items) {
-						String[] itemdata = itemsdata.split("'");
-						String[] maindata = itemdata[0].split(",");
-						String matname = maindata[0];
-						Material material = Material.getMaterial(matname.toUpperCase());
-						int amount = Integer.valueOf(maindata[1]);
-						short data = Short.valueOf(maindata[2]);
-						String price = maindata[3];
-						boolean isSoulbound = Boolean.valueOf(maindata[4]);
-						boolean isFinal = Boolean.valueOf(maindata[5]);
-						boolean isUnbreakable = Boolean.valueOf(maindata[6]);
-						List<String> lore = this.getConfig().getStringList("Items." + invname + "." + itemsdata);
-						Map<Enchantment, Integer> cmap = clicked.getEnchantments();
-						try {
-							ArrayList<String> enchantments = new ArrayList<String>();
-							for(int i = 1; i < itemdata.length; i++) {
-								String enchdata = itemdata[i];
-								enchantments.add(enchdata);
-							}
-							ItemStack enchitem = createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
-							Map<Enchantment, Integer> imap = enchitem.getEnchantments();
-							if (clicked.getType() == material) {
-								if (clicked.getAmount() == amount) {
-									if (clicked.getDurability() == data) {
-										if (cmap.equals(imap)) {
-											if (isSoulbound && clicked.getItemMeta().getLore().contains("§5§iSoulbound §f- §aCannot be dropped upon death.")) {
-												if (isFinal && clicked.getItemMeta().getLore().contains("§5§iFinal §f- §aCannot be modified or repaired.")) {
-													if (isUnbreakable && clicked.getItemMeta().getLore().contains("§5§iUnbreakable §f- §aCannot be broken.")) {
-														if (economy.getBalance(player) >= Integer.parseInt(price)) {
-															buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
-														} else {
-															WolfAPI.message("You do not have enough money to buy this!", player, "Shops");
-															player.closeInventory();
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						} catch (ArrayIndexOutOfBoundsException ex) {
-							if (clicked.getType() == material) {
-								if (clicked.getAmount() == amount) {
-									if (clicked.getDurability() == data) {
-										if (isSoulbound && clicked.getItemMeta().getLore().contains("§5§iSoulbound §f- §aCannot be dropped upon death.")) {
-											if (isFinal && clicked.getItemMeta().getLore().contains("§5§iFinal §f- §aCannot be modified or repaired.")) {
-												if (isUnbreakable && clicked.getItemMeta().getLore().contains("§5§iUnbreakable §f- §aCannot be broken.")) {
-													if (economy.getBalance(player) >= Integer.parseInt(price)) {
-														buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
-													} else {
-														player.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "You do not have enough money to buy this!");
-														player.closeInventory();
-													}
-												}
-											}
-										}
-									}
-								}
-							}
+					String itemsdata = items[clicked];
+					String[] itemdata = itemsdata.split("'");
+					String[] maindata = itemdata[0].split(",");
+					String matname = maindata[0];
+					Material material = Material.getMaterial(matname.toUpperCase());
+					int amount = Integer.valueOf(maindata[1]);
+					short data = Short.valueOf(maindata[2]);
+					String price = maindata[3];
+					boolean isSoulbound = Boolean.valueOf(maindata[4]);
+					boolean isFinal = Boolean.valueOf(maindata[5]);
+					boolean isUnbreakable = Boolean.valueOf(maindata[6]);
+					List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
+					buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
+					try {
+						ArrayList<String> enchantments = new ArrayList<String>();
+						for(int i = 1; i < itemdata.length; i++) {
+							String enchdata = itemdata[i];
+							enchantments.add(enchdata);
 						}
+						createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
+					} catch (ArrayIndexOutOfBoundsException ex) {
+						createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 					}
 				}
 			}
