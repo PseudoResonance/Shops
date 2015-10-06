@@ -161,7 +161,7 @@ public class Shops extends JavaPlugin implements Listener {
 		ItemStack item = new ItemStack(material, amount, data);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.YELLOW + WordUtils.capitalizeFully(item.getType().name().replace("_", " ").toLowerCase()));
-		if (lore != null) {
+		if (lore.isEmpty()) {
 			lore.add("");
 			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
 			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
@@ -194,7 +194,7 @@ public class Shops extends JavaPlugin implements Listener {
 		ItemStack item = new ItemStack(material, amount, data);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.YELLOW + WordUtils.capitalizeFully(item.getType().name().replace("_", " ").toLowerCase()));
-		if (lore != null) {
+		if (lore.isEmpty()) {
 			lore.add("");
 			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
 			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
@@ -219,7 +219,7 @@ public class Shops extends JavaPlugin implements Listener {
 
 	public ItemStack createBoughtItem(Material material, int amount, short data, boolean isSoulbound, boolean isFinal, boolean isUnbreakable, List<String> lore) {
 		ItemStack item = new ItemStack(material, amount, data);
-		if (lore != null) {
+		if (lore.isEmpty()) {
 			ItemMeta meta = item.getItemMeta();
 			meta.setLore(lore);
 			item.setItemMeta(meta);
@@ -238,7 +238,7 @@ public class Shops extends JavaPlugin implements Listener {
 
 	public ItemStack createEnchantedBoughtItem(Material material, int amount, short data, ArrayList<String> enchantments, boolean isSoulbound, boolean isFinal, boolean isUnbreakable, List<String> lore) {
 		ItemStack item = new ItemStack(material, amount, data);
-		if (lore != null) {
+		if (lore.isEmpty()) {
 			ItemMeta meta = item.getItemMeta();
 			meta.setLore(lore);
 			item.setItemMeta(meta);
@@ -264,7 +264,7 @@ public class Shops extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player) {
-			if (e.getCurrentItem() != null) {
+			if (e.getCurrentItem().getType() != Material.AIR) {
 				Player player = (Player) e.getWhoClicked();
 				int clicked = e.getSlot();
 				Inventory inventory = e.getInventory();
