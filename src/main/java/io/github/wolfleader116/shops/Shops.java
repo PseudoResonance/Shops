@@ -264,38 +264,40 @@ public class Shops extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player) {
-			Player player = (Player) e.getWhoClicked();
-			int clicked = e.getSlot();
-			Inventory inventory = e.getInventory();
-			for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
-				if (inventory.getTitle().equalsIgnoreCase("§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
-					String invname = inventory.getTitle().replace("§f§9", "");
-					invname = invname.replace(" Shop", "");
-					invname = invname.replace(" ", "_");
-					Set<String> itemlist = this.getConfig().getConfigurationSection("Items." + invname).getKeys(false);
-					String[] items = itemlist.toArray(new String[0]);
-					String itemsdata = items[clicked];
-					String[] itemdata = itemsdata.split("'");
-					String[] maindata = itemdata[0].split(",");
-					String matname = maindata[0];
-					Material material = Material.getMaterial(matname.toUpperCase());
-					int amount = Integer.valueOf(maindata[1]);
-					short data = Short.valueOf(maindata[2]);
-					String price = maindata[3];
-					boolean isSoulbound = Boolean.valueOf(maindata[4]);
-					boolean isFinal = Boolean.valueOf(maindata[5]);
-					boolean isUnbreakable = Boolean.valueOf(maindata[6]);
-					List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
-					buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
-					try {
-						ArrayList<String> enchantments = new ArrayList<String>();
-						for(int i = 1; i < itemdata.length; i++) {
-							String enchdata = itemdata[i];
-							enchantments.add(enchdata);
+			if (e.getCurrentItem() != null) {
+				Player player = (Player) e.getWhoClicked();
+				int clicked = e.getSlot();
+				Inventory inventory = e.getInventory();
+				for (String name : this.getConfig().getConfigurationSection("Items").getKeys(false)) {
+					if (inventory.getTitle().equalsIgnoreCase("§f§9" + WordUtils.capitalizeFully(name.replace("_", " ").toLowerCase()) + " Shop")) {
+						String invname = inventory.getTitle().replace("§f§9", "");
+						invname = invname.replace(" Shop", "");
+						invname = invname.replace(" ", "_");
+						Set<String> itemlist = this.getConfig().getConfigurationSection("Items." + invname).getKeys(false);
+						String[] items = itemlist.toArray(new String[0]);
+						String itemsdata = items[clicked];
+						String[] itemdata = itemsdata.split("'");
+						String[] maindata = itemdata[0].split(",");
+						String matname = maindata[0];
+						Material material = Material.getMaterial(matname.toUpperCase());
+						int amount = Integer.valueOf(maindata[1]);
+						short data = Short.valueOf(maindata[2]);
+						String price = maindata[3];
+						boolean isSoulbound = Boolean.valueOf(maindata[4]);
+						boolean isFinal = Boolean.valueOf(maindata[5]);
+						boolean isUnbreakable = Boolean.valueOf(maindata[6]);
+						List<String> lore = this.getConfig().getStringList("Items." + name + "." + itemsdata);
+						buyitem(player, price, material, amount, data, itemdata, isSoulbound, isFinal, isUnbreakable, lore);
+						try {
+							ArrayList<String> enchantments = new ArrayList<String>();
+							for(int i = 1; i < itemdata.length; i++) {
+								String enchdata = itemdata[i];
+								enchantments.add(enchdata);
+							}
+							createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
+						} catch (ArrayIndexOutOfBoundsException ex) {
+							createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 						}
-						createEnchantedBoughtItem(material, amount, data, enchantments, isSoulbound, isFinal, isUnbreakable, lore);
-					} catch (ArrayIndexOutOfBoundsException ex) {
-						createBoughtItem(material, amount, data, isSoulbound, isFinal, isUnbreakable, lore);
 					}
 				}
 			}
