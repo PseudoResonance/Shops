@@ -10,6 +10,7 @@ Version: 2
 Items:
   Food:
     Apple,5,0,20,false,false,false:
+      - Enjoy Me!
     Apple,3,0,50,true,false,false'Water_Worker,37:
       - Hey!
       - :)

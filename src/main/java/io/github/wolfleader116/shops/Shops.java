@@ -163,8 +163,15 @@ public class Shops extends JavaPlugin implements Listener {
 		ItemStack item = new ItemStack(material, amount, data);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.YELLOW + WordUtils.capitalizeFully(item.getType().name().replace("_", " ").toLowerCase()));
-		lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
-		lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		if (lore != null) {
+			lore.add("");
+			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
+			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		} else {
+			lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
+			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		for (String enchinfo : enchantments) {
@@ -189,8 +196,15 @@ public class Shops extends JavaPlugin implements Listener {
 		ItemStack item = new ItemStack(material, amount, data);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(ChatColor.YELLOW + WordUtils.capitalizeFully(item.getType().name().replace("_", " ").toLowerCase()));
-		lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
-		lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		if (lore != null) {
+			lore.add("");
+			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
+			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		} else {
+			lore = new ArrayList<String>();
+			lore.add(ChatColor.GRAY + "Price: " + ChatColor.GOLD + price);
+			lore.add(ChatColor.GRAY + "Amount: " + ChatColor.GOLD + Integer.toString(amount));
+		}
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		if (isSoulbound) {
@@ -207,9 +221,11 @@ public class Shops extends JavaPlugin implements Listener {
 
 	public ItemStack createBoughtItem(Material material, int amount, short data, boolean isSoulbound, boolean isFinal, boolean isUnbreakable, List<String> lore) {
 		ItemStack item = new ItemStack(material, amount, data);
-		ItemMeta meta = item.getItemMeta();
-		meta.setLore(lore);
-		item.setItemMeta(meta);
+		if (lore != null) {
+			ItemMeta meta = item.getItemMeta();
+			meta.setLore(lore);
+			item.setItemMeta(meta);
+		}
 		if (isSoulbound) {
 			item = ItemModifiers.setSoulbound(item);
 		}
@@ -224,9 +240,11 @@ public class Shops extends JavaPlugin implements Listener {
 
 	public ItemStack createEnchantedBoughtItem(Material material, int amount, short data, ArrayList<String> enchantments, boolean isSoulbound, boolean isFinal, boolean isUnbreakable, List<String> lore) {
 		ItemStack item = new ItemStack(material, amount, data);
-		ItemMeta meta = item.getItemMeta();
-		meta.setLore(lore);
-		item.setItemMeta(meta);
+		if (lore != null) {
+			ItemMeta meta = item.getItemMeta();
+			meta.setLore(lore);
+			item.setItemMeta(meta);
+		}
 		for (String enchinfo : enchantments) {
 			String[] enchdata = enchinfo.split(",");
 			int level = Integer.valueOf(enchdata[1]);
