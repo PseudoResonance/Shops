@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import io.github.wolfleader116.shops.commands.ShopsC;
+import io.github.wolfleader116.wolfapi.Errors;
 import io.github.wolfleader116.wolfapi.ItemModifiers;
 import net.milkbowl.vault.economy.Economy;
 
@@ -87,13 +88,13 @@ public class Shops extends JavaPlugin implements Listener {
 					}
 				}
 				if (e.getLine(3) != "§") {
-					p.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "Invalid format. Shop not created.");
+					Errors.sendError(Errors.CUSTOM, p, "Shops> ", "Invalid format. Shop not created.");
 					e.setLine(3, "");
 				} else {
 					e.setLine(3, "");
 				}
 			} else {
-				p.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "You do not have permission to create a Shop sign.");
+				Errors.sendError(Errors.NO_PERMISSION, p, "Shops> ");
 				e.setCancelled(true);
 			}
 		}
@@ -139,13 +140,13 @@ public class Shops extends JavaPlugin implements Listener {
 										number++;
 									}
 								} catch (NullPointerException exc) {
-									p.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "There is an error in the config! Please notify an admin.");
+									Errors.sendError(Errors.DEFAULT, p, "Shops> ");
 								}
 								p.openInventory(inv);
 							}
 						}
 					} else {
-						p.sendMessage(ChatColor.BLUE + "Shops> " + ChatColor.GREEN + "You do not have permission to use a Shop sign.");
+						Errors.sendError(Errors.NO_PERMISSION, p, "Shops> ");
 					}
 				}
 			}
